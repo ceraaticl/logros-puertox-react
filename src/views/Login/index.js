@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import logo from "assets/images/logo.png"
 import InputIcon from "@material-tailwind/react/InputIcon"
-import { XCircleIcon } from "@heroicons/react/solid"
+
 import Button from "components/Button"
 import { useNavigate } from "react-router-dom"
 import { useForm, Controller } from "react-hook-form"
 import axios from "axios"
+import ErrorAlert from "components/ErrorAlert"
 
 async function handleLogin({ username, password }) {
   try {
@@ -17,7 +18,7 @@ async function handleLogin({ username, password }) {
   }
 }
 
-export default function Login() {
+export default function Login({ setUser }) {
   let navigate = useNavigate()
   useEffect(() => {
     if (localStorage.token) {
@@ -44,8 +45,8 @@ export default function Login() {
     } else {
       localStorage.setItem("token", loginResponse.token)
       localStorage.setItem("username", loginResponse.username)
-      localStorage.setItem("isNotifier", loginResponse.isnotifier)
-      navigate("/facturas")
+      setUser(loginResponse)
+      navigate("/facturas", { state: loginResponse })
     }
   }
 
@@ -105,25 +106,7 @@ export default function Login() {
         </form>
       </div>
       <div className="mt-4">
-        {error && (
-          <div
-            className="p-2 bg-red-700 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
-            role="alert"
-          >
-            <span className="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">
-              Error
-            </span>
-            <span className="font-semibold mr-2 text-white text-left flex-auto">
-              {error}
-            </span>
-            <button
-              className="!border-none !outline-hidden"
-              onClick={() => setError("")}
-            >
-              <XCircleIcon className="h-5 w-5 text-white" />
-            </button>
-          </div>
-        )}
+        {error && <ErrorAlert error={error} setError={setError} />}
       </div>
     </div>
   )

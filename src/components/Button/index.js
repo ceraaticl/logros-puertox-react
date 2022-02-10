@@ -4,6 +4,7 @@ export default function Button({
   color,
   onClick,
   loading = false,
+  disabled = false,
 }) {
   // const style =
   //   color === "blue"
@@ -18,8 +19,8 @@ export default function Button({
           : color === "blue"
           ? "from-blue-600 to-blue-500 shadow-blue-500/50"
           : "from-green-600 to-green-500 shadow-green-500/50"
-      } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
-      disabled={loading}
+      } ${loading || disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      disabled={loading || disabled}
       onClick={onClick}
     >
       {loading ? (

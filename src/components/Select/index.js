@@ -1,24 +1,17 @@
-import { Fragment, useState } from "react"
+import { Fragment, useState, useEffect } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import Icon from "@material-tailwind/react/Icon"
-
-const people = [
-  {
-    id: 1,
-    name: "Fecha Ingreso",
-  },
-  {
-    id: 2,
-    name: "Fecha Vcto PuertoX",
-  },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function Select({ label, options }) {
+export default function Select({ label, options, setValue }) {
   const [selected, setSelected] = useState(options[0])
+
+  useEffect(() => {
+    setValue(selected)
+  }, [selected, setValue])
 
   return (
     <Listbox value={selected} onChange={setSelected}>

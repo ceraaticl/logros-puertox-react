@@ -3,173 +3,9 @@ import { DataGrid } from "@mui/x-data-grid"
 import Button from "components/Button"
 import ActionModal from "components/ActionModal"
 import columns from "./headers.js"
+import axios from "axios"
 
-const rows = [
-  {
-    id: 1,
-    rut_tenedor: "99999999-9",
-    razon_social_tenedor: "XXXXXXXXXXXXX",
-    fecha_ingreso: "2022-01-01",
-    fecha_venc_ptox: "2022-01-01",
-    fecha_transaccion_transferencia: "2022-01-01",
-    rut_emisor: "99999999-9",
-    razon_social_emisor: "XXXXXXXXXXXXX",
-    tipo_documento: 33,
-    folio: "111111",
-    clase_factura: "D",
-    monto_factura: 200000,
-    monto_pag_tenedor: 0,
-    monto_custodia: 200000,
-    origen_pago: "NO APLICA",
-    fecha_pago_px: "2022-01-01",
-    fecha_pago_tenedor: "2022-01-01",
-    fecha_rec_logros: "2022-01-01",
-    rut_pagador: "99999999-9",
-    razón_social_pagador: "XXXXXXXXXXXXX",
-    rut_garantizador: "99999999-9",
-    razón_social_garantizador: "XXXXXXXXXXXXX",
-    porcentaje_garantia: "100%",
-    dif_saldo: 0,
-    estado: "En custodia",
-  },
-  {
-    id: 2,
-    rut_tenedor: "99999999-9",
-    razon_social_tenedor: "XXXXXXXXXXXXX",
-    fecha_ingreso: "2022-01-01",
-    fecha_venc_ptox: "2022-01-01",
-    fecha_transaccion_transferencia: "2022-01-01",
-    rut_emisor: "99999999-9",
-    razon_social_emisor: "XXXXXXXXXXXXX",
-    tipo_documento: 33,
-    folio: "111111",
-    clase_factura: "D",
-    monto_factura: 200000,
-    monto_pag_tenedor: 0,
-    monto_custodia: 200000,
-    origen_pago: "NO APLICA",
-    fecha_pago_px: "2022-01-01",
-    fecha_pago_tenedor: "2022-01-01",
-    fecha_rec_logros: "2022-01-01",
-    rut_pagador: "99999999-9",
-    razón_social_pagador: "XXXXXXXXXXXXX",
-    rut_garantizador: "99999999-9",
-    razón_social_garantizador: "XXXXXXXXXXXXX",
-    porcentaje_garantia: "100%",
-    dif_saldo: 0,
-    estado: "En custodia",
-  },
-  {
-    id: 3,
-    rut_tenedor: "99999999-9",
-    razon_social_tenedor: "XXXXXXXXXXXXX",
-    fecha_ingreso: "2022-01-01",
-    fecha_venc_ptox: "2022-01-01",
-    fecha_transaccion_transferencia: "2022-01-01",
-    rut_emisor: "99999999-9",
-    razon_social_emisor: "XXXXXXXXXXXXX",
-    tipo_documento: 33,
-    folio: "111111",
-    clase_factura: "D",
-    monto_factura: 200000,
-    monto_pag_tenedor: 0,
-    monto_custodia: 200000,
-    origen_pago: "NO APLICA",
-    fecha_pago_px: "2022-01-01",
-    fecha_pago_tenedor: "2022-01-01",
-    fecha_rec_logros: "2022-01-01",
-    rut_pagador: "99999999-9",
-    razón_social_pagador: "XXXXXXXXXXXXX",
-    rut_garantizador: "99999999-9",
-    razón_social_garantizador: "XXXXXXXXXXXXX",
-    porcentaje_garantia: "100%",
-    dif_saldo: 0,
-    estado: "En custodia",
-  },
-  {
-    id: 4,
-    rut_tenedor: "99999999-9",
-    razon_social_tenedor: "XXXXXXXXXXXXX",
-    fecha_ingreso: "2022-01-01",
-    fecha_venc_ptox: "2022-01-01",
-    fecha_transaccion_transferencia: "2022-01-01",
-    rut_emisor: "99999999-9",
-    razon_social_emisor: "XXXXXXXXXXXXX",
-    tipo_documento: 33,
-    folio: "111111",
-    clase_factura: "D",
-    monto_factura: 200000,
-    monto_pag_tenedor: 0,
-    monto_custodia: 200000,
-    origen_pago: "NO APLICA",
-    fecha_pago_px: "2022-01-01",
-    fecha_pago_tenedor: "2022-01-01",
-    fecha_rec_logros: "2022-01-01",
-    rut_pagador: "99999999-9",
-    razón_social_pagador: "XXXXXXXXXXXXX",
-    rut_garantizador: "99999999-9",
-    razón_social_garantizador: "XXXXXXXXXXXXX",
-    porcentaje_garantia: "100%",
-    dif_saldo: 0,
-    estado: "En custodia",
-  },
-  {
-    id: 5,
-    rut_tenedor: "99999999-9",
-    razon_social_tenedor: "XXXXXXXXXXXXX",
-    fecha_ingreso: "2022-01-01",
-    fecha_venc_ptox: "2022-01-01",
-    fecha_transaccion_transferencia: "2022-01-01",
-    rut_emisor: "99999999-9",
-    razon_social_emisor: "XXXXXXXXXXXXX",
-    tipo_documento: 33,
-    folio: "111111",
-    clase_factura: "D",
-    monto_factura: 200000,
-    monto_pag_tenedor: 0,
-    monto_custodia: 200000,
-    origen_pago: "NO APLICA",
-    fecha_pago_px: "2022-01-01",
-    fecha_pago_tenedor: "2022-01-01",
-    fecha_rec_logros: "2022-01-01",
-    rut_pagador: "99999999-9",
-    razón_social_pagador: "XXXXXXXXXXXXX",
-    rut_garantizador: "99999999-9",
-    razón_social_garantizador: "XXXXXXXXXXXXX",
-    porcentaje_garantia: "100%",
-    dif_saldo: 0,
-    estado: "En custodia",
-  },
-  {
-    id: 6,
-    rut_tenedor: "99999999-9",
-    razon_social_tenedor: "XXXXXXXXXXXXX",
-    fecha_ingreso: "2022-01-01",
-    fecha_venc_ptox: "2022-01-01",
-    fecha_transaccion_transferencia: "2022-01-01",
-    rut_emisor: "99999999-9",
-    razon_social_emisor: "XXXXXXXXXXXXX",
-    tipo_documento: 33,
-    folio: "111111",
-    clase_factura: "D",
-    monto_factura: 200000,
-    monto_pag_tenedor: 0,
-    monto_custodia: 200000,
-    origen_pago: "NO APLICA",
-    fecha_pago_px: "2022-01-01",
-    fecha_pago_tenedor: "2022-01-01",
-    fecha_rec_logros: "2022-01-01",
-    rut_pagador: "99999999-9",
-    razón_social_pagador: "XXXXXXXXXXXXX",
-    rut_garantizador: "99999999-9",
-    razón_social_garantizador: "XXXXXXXXXXXXX",
-    porcentaje_garantia: "100%",
-    dif_saldo: 0,
-    estado: "En custodia",
-  },
-]
-
-const Footer = ({ billCount }) => {
+const Footer = ({ billCount, totalBills }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const handleClick = () => {
     setIsModalOpen(!isModalOpen)
@@ -178,15 +14,26 @@ const Footer = ({ billCount }) => {
     setIsModalOpen(false)
   }
   const buttonText =
-    billCount === 0 ? "Selecciona facturas" : `Notificar ${billCount} Facturas`
+    billCount === 0
+      ? "Selecciona facturas"
+      : `Notificar ${billCount} ${billCount === 1 ? "Factura" : "Facturas"}`
 
   return (
     <>
-      <div className="flex justify-center p-2">
-        <div className="w-40">
+      <div className="grid grid-cols-3 p-2">
+        <div className="flex items-center text-base ml-2">{`Total: ${totalBills} ${
+          totalBills === 1 ? "Factura" : "Facturas"
+        }`}</div>
+        <div className="w-80 flex place-self-center gap-2">
           <Button
             text={buttonText}
             color="red"
+            disabled={billCount === 0}
+            onClick={handleClick}
+          />
+          <Button
+            text="Descargar"
+            color="green"
             disabled={billCount === 0}
             onClick={handleClick}
           />
@@ -197,20 +44,48 @@ const Footer = ({ billCount }) => {
   )
 }
 
-export default function Table() {
+export default function Table({
+  user,
+  searchFilters,
+  isLoading,
+  setIsLoading,
+}) {
   const [selectionModel, setSelectionModel] = useState([])
   const [selectedData, setSelectedData] = useState([])
   const [isNotifier, setIsNotifier] = useState()
 
+  const [bills, setBills] = useState([])
+
   useEffect(() => {
-    const userIsNotifier = localStorage.getItem("isNotifier")
-    setIsNotifier(userIsNotifier === "true")
-  }, [])
+    const getBills = async (searchFilters) => {
+      try {
+        setIsLoading(true)
+        setBills([])
+        const billResponse = await axios.post(
+          "facturas/consultar",
+          searchFilters
+        )
+        if (!billResponse.data.message) {
+          setBills(billResponse.data.billList)
+          setIsNotifier(billResponse.data.isNotifier)
+        } else {
+          setBills([])
+        }
+        setIsLoading(false)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    if (Object.entries(searchFilters).length !== 0) {
+      getBills(searchFilters)
+    }
+  }, [user, searchFilters, setIsLoading])
 
   return (
-    <div className="w-5/6 mx-auto flex md:h-[34rem] mt-8 ">
+    <div className="w-5/6 mx-auto flex md:h-[34rem] mt-8">
       <DataGrid
-        rows={rows}
+        rows={bills}
         columns={columns.map((col) => ({ ...col, sortable: false }))}
         checkboxSelection={isNotifier}
         disableColumnFilter
@@ -218,10 +93,11 @@ export default function Table() {
         disableSelectAllCheckbox
         hideFooterPagination
         hideFooter={!isNotifier}
+        loading={isLoading}
         initialState={{ pinnedColumns: { left: ["notif"] } }}
         onSelectionModelChange={(newSelectionModel) => {
           const selectedIDs = new Set(newSelectionModel)
-          const newSelectedData = rows.filter((row) => {
+          const newSelectedData = bills.filter((row) => {
             return selectedIDs.has(row.id)
           })
           setSelectedData(newSelectedData)
@@ -236,7 +112,12 @@ export default function Table() {
           },
         }}
         components={{
-          Footer: () => <Footer billCount={selectionModel.length} />,
+          Footer: () => (
+            <Footer
+              billCount={selectionModel.length}
+              totalBills={bills.length}
+            />
+          ),
         }}
       />
     </div>

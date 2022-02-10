@@ -59,6 +59,7 @@ const selectedBills = [
     dif_saldo: 0,
     estado: "En custodia",
   },
+  { id: 0, label: "Total: ", total: "400000" },
 ]
 
 export default function ActionModal({ isOpen, onClose }) {
@@ -142,12 +143,25 @@ export default function ActionModal({ isOpen, onClose }) {
                                   <td className="py-4 px-6 border-b border-grey-light">
                                     {bill.rut_emisor}
                                   </td>
-                                  <td className="py-4 px-6 border-b border-grey-light">
-                                    {bill.folio}
-                                  </td>
-                                  <td className="py-4 px-6 border-b border-grey-light">
-                                    {bill.monto_factura}
-                                  </td>
+                                  {bill.id === 0 ? (
+                                    <>
+                                      <td className="font-bold py-4 px-6 border-b border-grey-light">
+                                        {bill.label}
+                                      </td>
+                                      <td className="font-bold py-4 px-6 border-b border-grey-light">
+                                        {bill.total}
+                                      </td>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <td className="py-4 px-6 border-b border-grey-light">
+                                        {bill.folio}
+                                      </td>
+                                      <td className="py-4 px-6 border-b border-grey-light">
+                                        {bill.monto_factura}
+                                      </td>
+                                    </>
+                                  )}
                                 </tr>
                               )
                             })}

@@ -161,7 +161,7 @@ const columns = [
     width: 120,
   },
   {
-    field: "razón_social_pagador",
+    field: "razon_social_pagador",
     headerName: "Razón social pagador",
     type: "number",
     width: 150,
@@ -173,7 +173,7 @@ const columns = [
     width: 120,
   },
   {
-    field: "razón_social_garantizador",
+    field: "razon_social_garantizador",
     headerName: "Razón social garantizador",
     type: "number",
     width: 150,
@@ -194,7 +194,7 @@ const columns = [
     field: "estado",
     headerName: "Estado",
     type: "number",
-    width: 90,
+    width: 100,
   },
 ]
 

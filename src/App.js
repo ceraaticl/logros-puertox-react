@@ -6,16 +6,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Login from "views/Login"
 import Bills from "views/Bills"
 import Navbar from "components/Navbar"
+import { useState } from "react"
 
 function App() {
-  console.log(localStorage.token)
+  const [user, setUser] = useState()
+
   return (
-    <div className="App sans h-screen flex flex-col">
+    <div className="App sans min-h-screen flex flex-col">
       <Router>
-        <Navbar />
+        <Navbar user={user} />
         <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route exact path="/facturas" element={<Bills />} />
+          <Route exact path="/" element={<Login setUser={setUser} />} />
+          <Route exact path="/facturas" element={<Bills user={user} />} />
         </Routes>
       </Router>
     </div>
