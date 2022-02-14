@@ -3,11 +3,11 @@
 // filtro de criterio
 const criterionList = [
   {
-    id: 0,
+    id: "1",
     name: "Fecha Ingreso",
   },
   {
-    id: 1,
+    id: "2",
     name: "Fecha Vcto PuertoX",
   },
 ]

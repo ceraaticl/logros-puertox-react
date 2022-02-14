@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react"
-import { DataGrid } from "@mui/x-data-grid"
+import {
+  DataGrid,
+  GridColumnMenuContainer,
+  GridFilterMenuItem,
+} from "@mui/x-data-grid"
 
 import columns from "./headers.js"
 import axios from "axios"
 import { Stack } from "@mui/material"
 import TableFooter from "./TableFooter.js"
+
+const CustomColumnMenu = (props) => {
+  const { hideMenu, currentColumn } = props
+  return (
+    <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn}>
+      <GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
+    </GridColumnMenuContainer>
+  )
+}
 
 /**
  * tabla que se encarga de mostrar organizadamente los datos de las facturas obtenidas de la api
@@ -53,10 +66,8 @@ export default function Table({
     <div className="w-5/6 mx-auto flex md:h-[34rem] mt-8">
       <DataGrid
         rows={bills}
-        columns={columns.map((col) => ({ ...col, sortable: false }))}
+        columns={columns}
         checkboxSelection={isNotifier}
-        disableColumnFilter
-        disableColumnMenu
         disableSelectAllCheckbox
         hideFooterPagination
         hideFooter={!isNotifier}
@@ -84,12 +95,16 @@ export default function Table({
             },
           },
         }}
-        getRowClassName={(params) => !params.row.dif_saldo && "row-error"}
+        getRowClassName={(params) =>
+          params.row.dif_saldo === null && "row-error"
+        }
         components={{
           Footer: () => (
             <TableFooter
               billCount={selectionModel.length}
               totalBills={bills.length}
+              selectedBills={0}
+              bills={bills}
             />
           ),
           NoRowsOverlay: () => (
@@ -102,6 +117,7 @@ export default function Table({
               No hay resultados para los filtros aplicados
             </Stack>
           ),
+          ColumnMenu: CustomColumnMenu,
         }}
       />
     </div>

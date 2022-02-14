@@ -10,6 +10,9 @@ import { useForm, Controller } from "react-hook-form"
 import { useState } from "react"
 import { TextField } from "@mui/material"
 import ErrorAlert from "components/ErrorAlert/index.js"
+import { InformationCircleIcon } from "@heroicons/react/solid"
+import InfoModal from "../InfoModal/index.js"
+import Help from "./Help.js"
 
 /**
  * seccion de busqueda, muestra diferentes inputs para que el usuario pueda filtrar los datos que quiere consultar
@@ -23,6 +26,7 @@ export default function Search({ setSearchFilters, isLoading }) {
   const [maxDate, setMaxDate] = useState() // fecha maxima para mostrar en los date picker
   const [minDate, setMinDate] = useState() // fecha maxima para mostrar en los date picker
   const [paramIsMissing, setParamIsMissing] = useState() // flag para mostrar error si es que falta algun parametro para la consulta
+  const [infoModalIsOpen, setInfoModalIsOpen] = useState(false)
 
   const {
     handleSubmit,
@@ -31,12 +35,10 @@ export default function Search({ setSearchFilters, isLoading }) {
   } = useForm()
 
   const onSubmit = (data) => {
-    if (!data.desde || !data.hasta) {
-      // si el usuario no ha selecionado fecha se toma la de hoy
-      const today = new Date()
-      data.desde = today
-      data.hasta = today
-    }
+    const today = new Date()
+    // si el usuario no ha selecionado fecha se toma la de hoy
+    if (!data.desde) data.desde = today
+    if (!data.hasta) data.hasta = today
 
     let filters = {
       dateCriteria: String(criteria.id),
@@ -60,8 +62,11 @@ export default function Search({ setSearchFilters, isLoading }) {
         setParamIsMissing(true)
       }
     }
-
     setSearchFilters(filters)
+  }
+
+  const handleInfoClick = () => {
+    setInfoModalIsOpen(true)
   }
 
   return (
@@ -95,7 +100,7 @@ export default function Search({ setSearchFilters, isLoading }) {
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Rut Emisor *"
+                    placeholder="Rut Emisor* (sólo con guión)"
                     color="red"
                     ref={null}
                   />
@@ -103,7 +108,23 @@ export default function Search({ setSearchFilters, isLoading }) {
               />
             </div>
           </div>
-          <div>
+          <div className="grid grid-rows-2">
+            <div className="text-xl self-start justify-self-end text-red-600">
+              <button
+                type="button"
+                classname="cursor-pointer"
+                onClick={handleInfoClick}
+              >
+                <InformationCircleIcon className="w-7 h-7" />
+              </button>
+              <InfoModal
+                title="Información de ayuda"
+                body={<Help />}
+                closeButtonText="¡Entendido!"
+                isOpen={infoModalIsOpen}
+                setIsOpen={setInfoModalIsOpen}
+              />
+            </div>
             <Controller
               name="folio"
               control={control}
@@ -112,7 +133,7 @@ export default function Search({ setSearchFilters, isLoading }) {
                 <Input
                   {...field}
                   type="number"
-                  placeholder="Folio *"
+                  placeholder="Folio*"
                   color="red"
                   ref={null}
                 />
@@ -193,7 +214,7 @@ export default function Search({ setSearchFilters, isLoading }) {
               render={({ field }) => (
                 <Select
                   {...field}
-                  label="DTE *"
+                  label="DTE*"
                   options={docTypeList}
                   ref={null}
                   setValue={setDTE}
@@ -210,7 +231,7 @@ export default function Search({ setSearchFilters, isLoading }) {
                 <Input
                   {...field}
                   type="text"
-                  placeholder="Rut Custodio"
+                  placeholder="Rut Custodio (sólo con guión)"
                   color="red"
                   ref={null}
                 />
