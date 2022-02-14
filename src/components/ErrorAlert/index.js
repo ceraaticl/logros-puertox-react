@@ -1,5 +1,9 @@
 import { XCircleIcon } from "@heroicons/react/solid"
 
+/**
+ * componente reusable para mostrar un error en pantalla, recibe ele error (mensaje) y una funcion que limpia el error
+ * al cerrar la alerta mostrada
+ */
 export default function ErrorAlert({ error, setError }) {
   return (
     <div

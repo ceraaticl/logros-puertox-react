@@ -62,6 +62,10 @@ const selectedBills = [
   { id: 0, label: "Total: ", total: "400000" },
 ]
 
+/**
+ * modal que se muestra al realizar alguna accion, se abre en base a la variable isOpen, y ejecuta cierta accion
+ * cuando se cierra con la funcion onClose
+ */
 export default function ActionModal({ isOpen, onClose }) {
   const cancelButtonRef = useRef(null)
   return (

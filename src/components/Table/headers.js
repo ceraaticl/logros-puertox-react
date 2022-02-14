@@ -1,3 +1,5 @@
+import { Tooltip } from "@mui/material"
+
 const headers = [
   "RUT tenedor",
   "Razón social tenedor",
@@ -50,67 +52,85 @@ const headersDataName = [
   "estado",
 ]
 
+// configuracion de nombres de columnas para la tabla que muestra las facturas
 const columns = [
   { field: "id", headerName: "ID", width: 50, hide: true },
   {
     field: "rut_tenedor",
     headerName: "RUT tenedor",
-    type: "number",
+    type: "string",
+    renderCell: (params) =>
+      !params.row.dif_saldo ? (
+        <Tooltip title="ATENCIÓN! ESTA FACTURA NO CUENTA CON INFORMACIÓN EN LOGROS, FAVOR REVISAR">
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+            {params.row.rut_tenedor}
+          </span>
+        </Tooltip>
+      ) : (
+        <span>{params.row.rut_tenedor}</span>
+      ),
     width: 120,
   },
   {
     field: "razon_social_tenedor",
     headerName: "Razón social tenedor",
-    type: "number",
+    type: "string",
+    renderCell: (params) => (
+      <OverflowRow name={params.row.razon_social_tenedor} />
+    ),
     width: 200,
   },
   {
     field: "fecha_ingreso",
     headerName: "F. Ingreso",
-    type: "number",
+    type: "date",
     width: 100,
   },
   {
     field: "fecha_venc_ptox",
     headerName: "Vencimiento PuertoX",
-    type: "number",
+    type: "date",
     width: 100,
   },
   {
     field: "fecha_transaccion_transferencia",
     headerName: "F. Transf.",
-    type: "number",
+    type: "date",
     width: 100,
   },
   {
     field: "rut_emisor",
     headerName: "RUT emisor",
-    type: "number",
+    type: "string",
     width: 120,
   },
   {
     field: "razon_social_emisor",
     headerName: "Razón social emisor",
-    type: "number",
+    type: "string",
+    renderCell: (params) => (
+      <OverflowRow name={params.row.razon_social_emisor} />
+    ),
     width: 200,
   },
   {
     field: "tipo_documento",
     headerName: "DTE",
     type: "number",
-    width: 80,
+    width: 70,
   },
   {
     field: "folio",
     headerName: "Folio",
     type: "number",
-    width: 100,
+    width: 90,
   },
   {
     field: "clase_factura",
     headerName: "Clase",
-    type: "number",
-    width: 80,
+    type: "string",
+    align: "center",
+    width: 70,
   },
   {
     field: "monto_factura",
@@ -133,49 +153,55 @@ const columns = [
   {
     field: "origen_pago",
     headerName: "Origen de pago",
-    type: "number",
-    width: 150,
+    type: "string",
+    width: 140,
   },
   {
     field: "fecha_pago_px",
     headerName: "F. pago PuertoX",
-    type: "number",
+    type: "date",
     width: 100,
   },
   {
     field: "fecha_pago_tenedor",
     headerName: "F. pago tenedor",
-    type: "number",
+    type: "date",
     width: 100,
   },
   {
     field: "fecha_rec_logros",
     headerName: "F. recaudación Logros",
-    type: "number",
+    type: "date",
     width: 100,
   },
   {
     field: "rut_pagador",
     headerName: "RUT pagador",
-    type: "number",
+    type: "string",
     width: 120,
   },
   {
     field: "razon_social_pagador",
     headerName: "Razón social pagador",
-    type: "number",
+    type: "string",
+    renderCell: (params) => (
+      <OverflowRow name={params.row.razon_social_pagador} />
+    ),
     width: 150,
   },
   {
     field: "rut_garantizador",
     headerName: "RUT garantizador",
-    type: "number",
+    type: "string",
     width: 120,
   },
   {
     field: "razon_social_garantizador",
     headerName: "Razón social garantizador",
-    type: "number",
+    type: "string",
+    renderCell: (params) => (
+      <OverflowRow name={params.row.razon_social_garantizador} />
+    ),
     width: 150,
   },
   {
@@ -193,9 +219,17 @@ const columns = [
   {
     field: "estado",
     headerName: "Estado",
-    type: "number",
+    type: "string",
     width: 100,
   },
 ]
+
+const OverflowRow = ({ name }) => (
+  <Tooltip title={name}>
+    <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+      {name}
+    </span>
+  </Tooltip>
+)
 
 export default columns

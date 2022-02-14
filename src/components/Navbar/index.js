@@ -7,6 +7,10 @@ import TooltipsContent from "@material-tailwind/react/TooltipsContent"
 
 import { useRef } from "react"
 
+/**
+ * barra de navegacion de la app, se muestra siempre
+ * si el usuario esta logueado muestra su nombre de usuario y un boton para logout
+ */
 export default function Navbar({ user }) {
   const isLogin = localStorage.getItem("token") && true
 

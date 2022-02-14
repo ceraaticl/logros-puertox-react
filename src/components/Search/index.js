@@ -11,15 +11,18 @@ import { useState } from "react"
 import { TextField } from "@mui/material"
 import ErrorAlert from "components/ErrorAlert/index.js"
 
+/**
+ * seccion de busqueda, muestra diferentes inputs para que el usuario pueda filtrar los datos que quiere consultar
+ */
 export default function Search({ setSearchFilters, isLoading }) {
-  const [criteria, setCriteria] = useState()
-  const [dateFrom, setDateFrom] = useState()
-  const [dateTo, setDateTo] = useState()
-  const [status, setStatus] = useState()
-  const [DTE, setDTE] = useState()
-  const [maxDate, setMaxDate] = useState()
-  const [minDate, setMinDate] = useState()
-  const [paramIsMissing, setParamIsMissing] = useState()
+  const [criteria, setCriteria] = useState() // criterio de busqueda
+  const [dateFrom, setDateFrom] = useState() // fecha desde
+  const [dateTo, setDateTo] = useState() // fecha hasta
+  const [status, setStatus] = useState() // estado de las facturas
+  const [DTE, setDTE] = useState() // tipo de doc
+  const [maxDate, setMaxDate] = useState() // fecha maxima para mostrar en los date picker
+  const [minDate, setMinDate] = useState() // fecha maxima para mostrar en los date picker
+  const [paramIsMissing, setParamIsMissing] = useState() // flag para mostrar error si es que falta algun parametro para la consulta
 
   const {
     handleSubmit,

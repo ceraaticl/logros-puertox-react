@@ -6,6 +6,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
+/**
+ * input en forma de combobox para que el usuario seleccione una de las opciones de la lista que se despliega
+ */
 export default function Select({ label, options, setValue }) {
   const [selected, setSelected] = useState(options[0])
 

@@ -1,3 +1,9 @@
+/**
+ * componente reusable, boton que recibe el tipo, texto que muestra, color (red, green y blue)
+ * una funcion onClick para ejecutar, y dos estados: cargando y deshabilitado
+ *
+ * se pueden agregar mas colores y estados para representar mas situaciones
+ */
 export default function Button({
   type,
   text,

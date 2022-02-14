@@ -9,6 +9,8 @@ import axios from "axios"
 import ErrorAlert from "components/ErrorAlert"
 
 async function handleLogin({ username, password }) {
+  // login a la api interna desarrollada para el proyecto, los usuarios que pueden logearse
+  // son los que estan en la tabla usuarios_puertox
   try {
     const res = await axios.post("auth/login", { username, password })
     return res.data
@@ -18,6 +20,9 @@ async function handleLogin({ username, password }) {
   }
 }
 
+/**
+ * pantalla de login de la app, formulario de usuario y password para entrar a la pantalla de facturas
+ */
 export default function Login({ setUser }) {
   let navigate = useNavigate()
   useEffect(() => {
@@ -40,9 +45,12 @@ export default function Login({ setUser }) {
     setIsLoading(true)
     const loginResponse = await handleLogin(data)
     setIsLoading(false)
+
     if (loginResponse.error) {
+      // si hay un error en el login se muestra
       setError(loginResponse.error.message)
     } else {
+      // si el login es exitoso se guardan los datos de sesion y se muestra pantalla de facturas
       localStorage.setItem("token", loginResponse.token)
       localStorage.setItem("username", loginResponse.username)
       setUser(loginResponse)

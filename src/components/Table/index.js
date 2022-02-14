@@ -1,49 +1,16 @@
 import { useEffect, useState } from "react"
 import { DataGrid } from "@mui/x-data-grid"
-import Button from "components/Button"
-import ActionModal from "components/ActionModal"
+
 import columns from "./headers.js"
 import axios from "axios"
+import { Stack } from "@mui/material"
+import TableFooter from "./TableFooter.js"
 
-const Footer = ({ billCount, totalBills }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const handleClick = () => {
-    setIsModalOpen(!isModalOpen)
-  }
-  const handleClose = () => {
-    setIsModalOpen(false)
-  }
-  const buttonText =
-    billCount === 0
-      ? "Selecciona facturas"
-      : `Notificar ${billCount} ${billCount === 1 ? "Factura" : "Facturas"}`
-
-  return (
-    <>
-      <div className="grid grid-cols-3 p-2">
-        <div className="flex items-center text-base ml-2">{`Total: ${totalBills} ${
-          totalBills === 1 ? "Factura" : "Facturas"
-        }`}</div>
-        <div className="w-80 flex place-self-center gap-2">
-          <Button
-            text={buttonText}
-            color="red"
-            disabled={billCount === 0}
-            onClick={handleClick}
-          />
-          <Button
-            text="Descargar"
-            color="green"
-            disabled={billCount === 0}
-            onClick={handleClick}
-          />
-        </div>
-      </div>
-      <ActionModal isOpen={isModalOpen} onClose={handleClose} />
-    </>
-  )
-}
-
+/**
+ * tabla que se encarga de mostrar organizadamente los datos de las facturas obtenidas de la api
+ * interna para que las vea el usuario, segun el tipo de usuario se muestra la positibilidad de notificar
+ * las facturas y descargar los datos en excel (Footer de la tabla, parte inferior)
+ */
 export default function Table({
   user,
   searchFilters,
@@ -108,15 +75,32 @@ export default function Table({
           backgroundColor: "white",
           boxShadow: 2,
           "& .MuiDataGrid-cell:hover": {
-            color: "red",
+            fontWeight: "bold",
+          },
+          "& .row-error": {
+            bgcolor: "#FF3333",
+            "&:hover": {
+              bgcolor: "#CF000F",
+            },
           },
         }}
+        getRowClassName={(params) => !params.row.dif_saldo && "row-error"}
         components={{
           Footer: () => (
-            <Footer
+            <TableFooter
               billCount={selectionModel.length}
               totalBills={bills.length}
             />
+          ),
+          NoRowsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              Realiza una búsqueda
+            </Stack>
+          ),
+          NoResultsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              No hay resultados para los filtros aplicados
+            </Stack>
           ),
         }}
       />
