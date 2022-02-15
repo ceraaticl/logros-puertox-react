@@ -53,6 +53,9 @@ export default function Login({ setUser }) {
       // si el login es exitoso se guardan los datos de sesion y se muestra pantalla de facturas
       localStorage.setItem("token", loginResponse.token)
       localStorage.setItem("username", loginResponse.username)
+      axios.defaults.headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
       setUser(loginResponse)
       navigate("/facturas", { state: loginResponse })
     }

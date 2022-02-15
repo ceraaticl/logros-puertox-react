@@ -3,11 +3,15 @@ import {
   DataGrid,
   GridColumnMenuContainer,
   GridFilterMenuItem,
+  gridPageCountSelector,
+  gridPageSelector,
+  useGridApiContext,
+  useGridSelector,
 } from "@mui/x-data-grid"
 
 import columns from "./headers.js"
 import axios from "axios"
-import { Stack } from "@mui/material"
+import { Pagination, Stack } from "@mui/material"
 import TableFooter from "./TableFooter.js"
 
 const CustomColumnMenu = (props) => {
@@ -16,6 +20,21 @@ const CustomColumnMenu = (props) => {
     <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn}>
       <GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
     </GridColumnMenuContainer>
+  )
+}
+
+function CustomPagination() {
+  const apiRef = useGridApiContext()
+  const page = useGridSelector(apiRef, gridPageSelector)
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector)
+
+  return (
+    <Pagination
+      color="primary"
+      count={pageCount}
+      page={page + 1}
+      onChange={(event, value) => apiRef.current.setPage(value - 1)}
+    />
   )
 }
 
@@ -67,9 +86,9 @@ export default function Table({
       <DataGrid
         rows={bills}
         columns={columns}
+        autoPageSize
         checkboxSelection={isNotifier}
         disableSelectAllCheckbox
-        hideFooterPagination
         hideFooter={!isNotifier}
         loading={isLoading}
         initialState={{ pinnedColumns: { left: ["notif"] } }}
@@ -118,6 +137,7 @@ export default function Table({
             </Stack>
           ),
           ColumnMenu: CustomColumnMenu,
+          //Pagination: CustomPagination,
         }}
       />
     </div>

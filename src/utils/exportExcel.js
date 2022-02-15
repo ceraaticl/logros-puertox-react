@@ -34,13 +34,22 @@ export default function exportExcel(fileName, data) {
       for (let j = 0; j < value.length; j++) {
         if (typeof value[j] == "number") {
           objectMaxLength[j] = 12
-        } else if (value[j] === null) {
+        } else if (
+          value[j] === null ||
+          value[j] === undefined ||
+          value[j] === ""
+        ) {
           objectMaxLength[j] = 10
         } else {
-          objectMaxLength[j] =
-            objectMaxLength[j] >= value[j].length
-              ? objectMaxLength[j]
-              : value[j].length
+          // largo minimo 5
+          if (value[j].length < 5) {
+            objectMaxLength[j] = 5
+          } else {
+            objectMaxLength[j] =
+              objectMaxLength[j] >= value[j].length
+                ? objectMaxLength[j]
+                : value[j].length
+          }
         }
       }
     }
@@ -61,5 +70,5 @@ export default function exportExcel(fileName, data) {
 
   let buf = write(workBook, { bookType: "xlsx", type: "buffer" })
   write(workBook, { bookType: "xlsx", type: "binary" })
-  writeFile(workBook, `${fileName}_AL_${data.fechaConsultada}.xlsx`)
+  writeFile(workBook, `${fileName}.xlsx`)
 }

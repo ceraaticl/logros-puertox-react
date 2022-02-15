@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App sans min-h-screen flex flex-col">
-      <Router>
+      <Router basename="/nicolas/LogrosPuertoX/web">
         <Navbar user={user} />
         <Routes>
           <Route exact path="/" element={<Login setUser={setUser} />} />

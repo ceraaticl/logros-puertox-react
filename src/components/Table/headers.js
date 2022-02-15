@@ -197,7 +197,7 @@ const columns = [
   },
   {
     field: "porcentaje_garantia",
-    headerName: "Garantía",
+    headerName: "% Garantía",
     type: "number",
     disableColumnMenu: true,
     sortable: false,

@@ -3,6 +3,13 @@ import ActionModal from "components/ActionModal"
 import Tooltip from "@mui/material/Tooltip"
 import { useState } from "react"
 import exportExcel from "utils/exportExcel"
+import {
+  gridPageCountSelector,
+  gridPageSelector,
+  useGridApiContext,
+  useGridSelector,
+} from "@mui/x-data-grid"
+import { Pagination } from "@mui/material"
 
 /**
  * footer de la tabla de facturas, muestra el total de facturas y  muestra los botones de notificar y descargar
@@ -31,6 +38,9 @@ export default function TableFooter({
     // toma los datos de resultados para descargarlos a un excel
     exportExcel(`facturas_depositadas_px`, bills)
   }
+  const apiRef = useGridApiContext()
+  const page = useGridSelector(apiRef, gridPageSelector)
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector)
 
   return (
     <>
@@ -55,6 +65,16 @@ export default function TableFooter({
               />
             </span>
           </Tooltip>
+        </div>
+        <div className="flex place-self-end self-center">
+          <Pagination
+            color="primary"
+            count={pageCount}
+            page={page + 1}
+            showFirstButton
+            showLastButton
+            onChange={(event, value) => apiRef.current.setPage(value - 1)}
+          />
         </div>
       </div>
       <ActionModal isOpen={isModalOpen} onClose={handleClose} />

@@ -112,7 +112,7 @@ export default function Search({ setSearchFilters, isLoading }) {
             <div className="text-xl self-start justify-self-end text-red-600">
               <button
                 type="button"
-                classname="cursor-pointer"
+                className="cursor-pointer"
                 onClick={handleInfoClick}
               >
                 <InformationCircleIcon className="w-7 h-7" />
