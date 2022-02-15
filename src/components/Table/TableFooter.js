@@ -10,6 +10,16 @@ import {
   useGridSelector,
 } from "@mui/x-data-grid"
 import { Pagination } from "@mui/material"
+import { makeStyles } from "@mui/styles"
+
+const useStyles = makeStyles(() => ({
+  ul: {
+    "& .MuiPaginationItem-root.Mui-selected": {
+      color: "white",
+      backgroundColor: "red",
+    },
+  },
+}))
 
 /**
  * footer de la tabla de facturas, muestra el total de facturas y  muestra los botones de notificar y descargar
@@ -20,6 +30,7 @@ export default function TableFooter({
   selectedBills,
   bills,
 }) {
+  const classes = useStyles()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleClick = () => {
@@ -68,11 +79,11 @@ export default function TableFooter({
         </div>
         <div className="flex place-self-end self-center">
           <Pagination
-            color="primary"
             count={pageCount}
             page={page + 1}
             showFirstButton
             showLastButton
+            classes={{ ul: classes.ul }}
             onChange={(event, value) => apiRef.current.setPage(value - 1)}
           />
         </div>

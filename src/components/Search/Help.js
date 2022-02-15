@@ -3,7 +3,7 @@ export default function Help() {
     <div className="ml-4">
       <ol class="list-decimal">
         <li>
-          Parámetros obligatorios para realizar una busqueda individual:
+          Parámetros obligatorios para realizar una búsqueda individual:
           <ul className="list-disc ml-8">
             <li>RUT Emisor</li>
             <li>DTE</li>
@@ -22,7 +22,7 @@ export default function Help() {
         <li>
           Puedes filtrar por valores arbitrarios en la columna "Dif. Saldo
           PuertoX-Logros" y además ordenarla, junto con esto, también puedes
-          ordenar por el monto de la factura.
+          ordenar por la fecha de vencimiento de la factura.
         </li>
       </ol>
     </div>
