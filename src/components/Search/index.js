@@ -166,7 +166,7 @@ export default function Search({ setSearchFilters, isLoading }) {
                         {...params}
                         variant="standard"
                         fullWidth
-                        color="warning"
+                        color="error"
                       />
                     )}
                   />
@@ -198,7 +198,7 @@ export default function Search({ setSearchFilters, isLoading }) {
                         {...params}
                         variant="standard"
                         fullWidth
-                        color="warning"
+                        color="error"
                       />
                     )}
                   />

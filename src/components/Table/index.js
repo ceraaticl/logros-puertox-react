@@ -3,15 +3,11 @@ import {
   DataGrid,
   GridColumnMenuContainer,
   GridFilterMenuItem,
-  gridPageCountSelector,
-  gridPageSelector,
-  useGridApiContext,
-  useGridSelector,
 } from "@mui/x-data-grid"
 
 import columns from "./headers.js"
 import axios from "axios"
-import { Pagination, Stack } from "@mui/material"
+import { Stack } from "@mui/material"
 import TableFooter from "./TableFooter.js"
 
 const CustomColumnMenu = (props) => {
@@ -20,21 +16,6 @@ const CustomColumnMenu = (props) => {
     <GridColumnMenuContainer hideMenu={hideMenu} currentColumn={currentColumn}>
       <GridFilterMenuItem onClick={hideMenu} column={currentColumn} />
     </GridColumnMenuContainer>
-  )
-}
-
-function CustomPagination() {
-  const apiRef = useGridApiContext()
-  const page = useGridSelector(apiRef, gridPageSelector)
-  const pageCount = useGridSelector(apiRef, gridPageCountSelector)
-
-  return (
-    <Pagination
-      color="primary"
-      count={pageCount}
-      page={page + 1}
-      onChange={(event, value) => apiRef.current.setPage(value - 1)}
-    />
   )
 }
 
@@ -52,6 +33,7 @@ export default function Table({
   const [selectionModel, setSelectionModel] = useState([])
   const [selectedData, setSelectedData] = useState([])
   const [isNotifier, setIsNotifier] = useState()
+  const [hasMadeSearch, setHasMadeSearch] = useState(false)
 
   const [bills, setBills] = useState([])
 
@@ -59,6 +41,7 @@ export default function Table({
     const getBills = async (searchFilters) => {
       try {
         setIsLoading(true)
+        setHasMadeSearch(true)
         setBills([])
         const billResponse = await axios.post(
           "facturas/consultar",
@@ -97,7 +80,16 @@ export default function Table({
           const newSelectedData = bills.filter((row) => {
             return selectedIDs.has(row.id)
           })
-          setSelectedData(newSelectedData)
+          const necessaryData = newSelectedData.map((bill) => {
+            return {
+              id: bill.id,
+              rut_emisor: bill.rut_emisor,
+              folio: bill.folio,
+              tipo_documento: bill.tipo_documento,
+              monto_factura: bill.monto_factura,
+            }
+          })
+          setSelectedData(necessaryData)
           setSelectionModel(newSelectionModel)
         }}
         selectionModel={selectionModel}
@@ -122,22 +114,18 @@ export default function Table({
             <TableFooter
               billCount={selectionModel.length}
               totalBills={bills.length}
-              selectedBills={0}
+              selectedBills={selectedData}
               bills={bills}
             />
           ),
           NoRowsOverlay: () => (
             <Stack height="100%" alignItems="center" justifyContent="center">
-              Realiza una búsqueda
-            </Stack>
-          ),
-          NoResultsOverlay: () => (
-            <Stack height="100%" alignItems="center" justifyContent="center">
-              No hay resultados para los filtros aplicados
+              {hasMadeSearch
+                ? "No se encontraron resultados con los filtros usados"
+                : "Realiza una búsqueda"}
             </Stack>
           ),
           ColumnMenu: CustomColumnMenu,
-          //Pagination: CustomPagination,
         }}
       />
     </div>

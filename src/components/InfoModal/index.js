@@ -7,8 +7,10 @@ export default function InfoModal({
   closeButtonText,
   isOpen,
   setIsOpen,
+  onClose,
 }) {
   function closeModal() {
+    onClose()
     setIsOpen(false)
   }
 
@@ -57,7 +59,7 @@ export default function InfoModal({
                   {title}
                 </Dialog.Title>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">{body}</p>
+                  <div className="text-sm text-gray-500">{body}</div>
                 </div>
 
                 <div className="mt-4">

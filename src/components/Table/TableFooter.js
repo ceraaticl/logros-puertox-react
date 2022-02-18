@@ -1,5 +1,5 @@
 import Button from "components/Button"
-import ActionModal from "components/ActionModal"
+import NotificationModal from "components/NotificationModal"
 import Tooltip from "@mui/material/Tooltip"
 import { useState } from "react"
 import exportExcel from "utils/exportExcel"
@@ -88,7 +88,11 @@ export default function TableFooter({
           />
         </div>
       </div>
-      <ActionModal isOpen={isModalOpen} onClose={handleClose} />
+      <NotificationModal
+        isOpen={isModalOpen}
+        onClose={handleClose}
+        selectedBills={selectedBills}
+      />
     </>
   )
 }

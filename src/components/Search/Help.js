@@ -1,7 +1,7 @@
 export default function Help() {
   return (
     <div className="ml-4">
-      <ol class="list-decimal">
+      <ol className="list-decimal">
         <li>
           Parámetros obligatorios para realizar una búsqueda individual:
           <ul className="list-disc ml-8">
