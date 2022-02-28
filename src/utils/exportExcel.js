@@ -5,7 +5,6 @@ export default function exportExcel(fileName, data) {
   const workBook = utils.book_new()
 
   // recorrer datos
-
   try {
     // formatear los datos
     data.map((row) => {
@@ -27,7 +26,7 @@ export default function exportExcel(fileName, data) {
       return row
     })
 
-    // definir ancho de columna automatico
+    // definir ancho de columna automatico a partir de la cantidad de caracteres de las columnas
     let objectMaxLength = []
     for (let i = 0; i < data.length; i++) {
       let value = Object.values(data[i])

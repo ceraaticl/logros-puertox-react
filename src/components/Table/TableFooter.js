@@ -24,12 +24,9 @@ const useStyles = makeStyles(() => ({
 /**
  * footer de la tabla de facturas, muestra el total de facturas y  muestra los botones de notificar y descargar
  */
-export default function TableFooter({
-  billCount,
-  totalBills,
-  selectedBills,
-  bills,
-}) {
+export default function TableFooter({ selectedBills, bills, isNotifier }) {
+  const billCount = selectedBills.length
+  const totalBills = bills.length
   const classes = useStyles()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -60,12 +57,14 @@ export default function TableFooter({
           totalBills === 1 ? "Factura" : "Facturas"
         }`}</div>
         <div className="w-80 flex place-self-center gap-2">
-          <Button
-            text={buttonText}
-            color="red"
-            disabled={billCount === 0}
-            onClick={handleClick}
-          />
+          {isNotifier && (
+            <Button
+              text={buttonText}
+              color="red"
+              disabled={billCount === 0}
+              onClick={handleClick}
+            />
+          )}
           <Tooltip title="Descarga un excel con los resutlados" placement="top">
             <span className="w-full">
               <Button

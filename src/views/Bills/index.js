@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom"
  */
 export default function Bills() {
   let navigate = useNavigate()
-  const { state } = useLocation()
+  const { state } = useLocation() // ususario de la sesion
 
   const [searchFilters, setSearchFilters] = useState({})
   const [isLoading, setIsLoading] = useState(false)

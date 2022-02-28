@@ -45,9 +45,14 @@ export default function Select({ label, options, setValue }) {
                   options.map((option) => (
                     <Listbox.Option
                       key={option.id}
+                      disabled={option.disabled ? option.disabled : false}
                       className={({ active }) =>
                         classNames(
-                          active ? "text-white bg-red-600" : "text-gray-900",
+                          active
+                            ? "text-white bg-red-600"
+                            : option.disabled
+                            ? "text-gray-400"
+                            : "text-gray-900",
                           "cursor-default select-none relative py-2 pl-3 pr-9"
                         )
                       }

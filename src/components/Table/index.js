@@ -34,6 +34,7 @@ export default function Table({
   const [selectedData, setSelectedData] = useState([])
   const [isNotifier, setIsNotifier] = useState()
   const [hasMadeSearch, setHasMadeSearch] = useState(false)
+  const [footerIsShown, setFooterIsShown] = useState(false)
 
   const [bills, setBills] = useState([])
 
@@ -50,6 +51,7 @@ export default function Table({
         if (!billResponse.data.message) {
           setBills(billResponse.data.billList)
           setIsNotifier(billResponse.data.isNotifier)
+          setFooterIsShown(true)
         } else {
           setBills([])
         }
@@ -70,9 +72,9 @@ export default function Table({
         rows={bills}
         columns={columns}
         autoPageSize
+        hideFooter={!footerIsShown}
         checkboxSelection={isNotifier}
         disableSelectAllCheckbox
-        hideFooter={!isNotifier}
         loading={isLoading}
         initialState={{ pinnedColumns: { left: ["notif"] } }}
         onSelectionModelChange={(newSelectionModel) => {
@@ -80,6 +82,7 @@ export default function Table({
           const newSelectedData = bills.filter((row) => {
             return selectedIDs.has(row.id)
           })
+
           const necessaryData = newSelectedData.map((bill) => {
             return {
               id: bill.id,
@@ -89,6 +92,7 @@ export default function Table({
               monto_factura: bill.monto_factura,
             }
           })
+
           setSelectedData(necessaryData)
           setSelectionModel(newSelectionModel)
         }}
@@ -115,7 +119,8 @@ export default function Table({
               billCount={selectionModel.length}
               totalBills={bills.length}
               selectedBills={selectedData}
-              bills={bills}
+              bills={JSON.parse(JSON.stringify(bills))}
+              isNotifier={isNotifier}
             />
           ),
           NoRowsOverlay: () => (

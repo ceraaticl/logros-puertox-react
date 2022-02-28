@@ -1,10 +1,13 @@
+/**
+ * cuerpo del modal de ayuda para el usuario, simplemente en este archivo para no congestionar mas donde se ocupa
+ */
 export default function Help() {
   return (
     <div className="ml-4">
       <ol className="list-decimal">
         <li>
           Parámetros obligatorios para realizar una búsqueda individual:
-          <ul className="list-disc ml-8">
+          <ul className="ml-8 list-disc">
             <li>RUT Emisor</li>
             <li>DTE</li>
             <li>Folio</li>

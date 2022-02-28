@@ -12,10 +12,6 @@ export default function Button({
   loading = false,
   disabled = false,
 }) {
-  // const style =
-  //   color === "blue"
-  //     ? "w-full py-2 bg-gradient-to-r from-blue-600 to-blue-500 rounded-md shadow-lg shadow-blue-500/50 text-white text-sm my-4"
-  //     : "w-full py-2 bg-gradient-to-r from-red-600 to-red-500 rounded-md shadow-lg shadow-red-500/50 text-white text-sm my-4"
   return (
     <button
       type={type}
@@ -31,7 +27,7 @@ export default function Button({
     >
       {loading ? (
         <svg
-          className="animate-spin mx-auto h-5 w-5 text-white"
+          className="w-5 h-5 mx-auto text-white animate-spin"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

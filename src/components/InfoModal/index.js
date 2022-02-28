@@ -10,7 +10,7 @@ export default function InfoModal({
   onClose,
 }) {
   function closeModal() {
-    onClose()
+    if (onClose) onClose()
     setIsOpen(false)
   }
 

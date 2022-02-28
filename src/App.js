@@ -8,11 +8,12 @@ import Bills from "views/Bills"
 import Navbar from "components/Navbar"
 import { useState } from "react"
 
+// rutas
 function App() {
   const [user, setUser] = useState()
 
   return (
-    <div className="App sans min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen App sans">
       <Router basename="/nicolas/LogrosPuertoX/web">
         <Navbar user={user} />
         <Routes>

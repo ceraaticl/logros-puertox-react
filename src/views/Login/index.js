@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react"
 import logo from "assets/images/logo.png"
-import InputIcon from "@material-tailwind/react/InputIcon"
+import Input from "@material-tailwind/react/Input"
 
 import Button from "components/Button"
 import { useNavigate } from "react-router-dom"
 import { useForm, Controller } from "react-hook-form"
 import axios from "axios"
 import ErrorAlert from "components/ErrorAlert"
+
+import { EyeIcon, EyeOffIcon, UserIcon } from "@heroicons/react/solid"
 
 async function handleLogin({ username, password }) {
   // login a la api interna desarrollada para el proyecto, los usuarios que pueden logearse
@@ -32,6 +34,7 @@ export default function Login({ setUser }) {
   }, [navigate])
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isPasswordShown, setIsPasswordShown] = useState(false)
   const [error, setError] = useState("")
 
   const {
@@ -41,6 +44,7 @@ export default function Login({ setUser }) {
   } = useForm()
 
   const onSubmit = async (data) => {
+    setIsPasswordShown(false)
     // cargar login
     setIsLoading(true)
     const loginResponse = await handleLogin(data)
@@ -61,6 +65,8 @@ export default function Login({ setUser }) {
     }
   }
 
+  const togglePasswordShow = () => setIsPasswordShown(!isPasswordShown)
+
   return (
     <div className="flex grow flex-col justify-center items-center">
       <div className="max-w-xs w-full mx-auto mt-4 bg-white p-8 rounded-lg shadow-md">
@@ -74,16 +80,15 @@ export default function Login({ setUser }) {
         </section>
         <form onSubmit={handleSubmit(onSubmit)} className="form space-y-6 my-2">
           <section className="mb-4">
-            <div className="my-4">
+            <div className="flex items-center my-4">
               <Controller
                 name="username"
                 rules={{ required: true }}
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <InputIcon
+                  <Input
                     {...field}
-                    iconName="person"
                     placeholder="Nombre de usuario"
                     color="red"
                     error={errors?.username && "Campo requerido"}
@@ -91,18 +96,18 @@ export default function Login({ setUser }) {
                   />
                 )}
               />
+              <UserIcon className="h-6 w-6 text-gray-600" />
             </div>
-            <div className="mt-8 mb-4">
+            <div className="flex items-center mt-8 mb-4">
               <Controller
                 name="password"
                 rules={{ required: true }}
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <InputIcon
+                  <Input
                     {...field}
-                    type="password"
-                    iconName="lock"
+                    type={isPasswordShown ? "text" : "password"}
                     placeholder="Contraseña"
                     color="red"
                     error={errors?.password && "Campo requerido"}
@@ -110,6 +115,13 @@ export default function Login({ setUser }) {
                   />
                 )}
               />
+              <button type="button" onClick={togglePasswordShow}>
+                {isPasswordShown ? (
+                  <EyeOffIcon className="h-6 w-6 text-gray-600" />
+                ) : (
+                  <EyeIcon className="h-6 w-6 text-gray-600" />
+                )}
+              </button>
             </div>
             <span className="mt-4"></span>
           </section>

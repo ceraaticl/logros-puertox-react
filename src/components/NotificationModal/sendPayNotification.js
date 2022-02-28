@@ -30,6 +30,7 @@ export default async function sendPayNotification(data) {
     voucher: voucherB64,
   }
 
+  // enviar datos a la api interna
   try {
     const billResponse = await axios.post("facturas/notificar", notifyParams)
     return { ...billResponse.data, status: billResponse.status }

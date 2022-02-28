@@ -1,18 +1,19 @@
-import Input from "@material-tailwind/react/Input"
-import Button from "components/Button/index.js"
-import Select from "components/Select"
-import AdapterDateFns from "@mui/lab/AdapterDateFns"
-import LocalizationProvider from "@mui/lab/LocalizationProvider"
-import DatePicker from "@mui/lab/DatePicker"
-import localeEs from "date-fns/locale/es"
 import { criterionList, statusList, docTypeList } from "./filters.js"
+import { InformationCircleIcon } from "@heroicons/react/solid"
+import { TextField } from "@mui/material"
 import { useForm, Controller } from "react-hook-form"
 import { useState } from "react"
-import { TextField } from "@mui/material"
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+import DatePicker from "@mui/lab/DatePicker"
+import Input from "@material-tailwind/react/Input"
+import localeEs from "date-fns/locale/es"
+import LocalizationProvider from "@mui/lab/LocalizationProvider"
+
+import Button from "components/Button/index.js"
 import ErrorAlert from "components/ErrorAlert/index.js"
-import { InformationCircleIcon } from "@heroicons/react/solid"
-import InfoModal from "../InfoModal/index.js"
 import Help from "./Help.js"
+import InfoModal from "../InfoModal/index.js"
+import Select from "components/Select"
 
 /**
  * seccion de busqueda, muestra diferentes inputs para que el usuario pueda filtrar los datos que quiere consultar
@@ -28,11 +29,7 @@ export default function Search({ setSearchFilters, isLoading }) {
   const [paramIsMissing, setParamIsMissing] = useState() // flag para mostrar error si es que falta algun parametro para la consulta
   const [infoModalIsOpen, setInfoModalIsOpen] = useState(false)
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm()
+  const { handleSubmit, control } = useForm()
 
   const onSubmit = (data) => {
     const today = new Date()
@@ -75,7 +72,7 @@ export default function Search({ setSearchFilters, isLoading }) {
         onSubmit={handleSubmit(onSubmit)}
         className="w-5/6 mx-auto h-64 mt-4 bg-white p-5 rounded-lg shadow-md grid grid-rows-[auto_auto_auto] grid-flow-col gap-0"
       >
-        <div className="grid grid-cols-4 gap-8 items-end">
+        <div className="grid items-end grid-cols-4 gap-8">
           <div>
             <h1 className="text-xl text-red-600">Consulta Masiva</h1>
             <Select
@@ -87,8 +84,8 @@ export default function Search({ setSearchFilters, isLoading }) {
           <div className="mr-3">
             <Select label="Estado" options={statusList} setValue={setStatus} />
           </div>
-          <div className="ml-3 grid grid-rows-2">
-            <h1 className="text-xl self-start col-span-2 text-red-600">
+          <div className="grid grid-rows-2 ml-3">
+            <h1 className="self-start col-span-2 text-xl text-red-600">
               Consulta Individual
             </h1>
             <div className="col-span-2">
@@ -109,7 +106,7 @@ export default function Search({ setSearchFilters, isLoading }) {
             </div>
           </div>
           <div className="grid grid-rows-2">
-            <div className="text-xl self-start justify-self-end text-red-600">
+            <div className="self-start text-xl text-red-600 justify-self-end">
               <button
                 type="button"
                 className="cursor-pointer"
@@ -141,7 +138,7 @@ export default function Search({ setSearchFilters, isLoading }) {
             />
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-8 items-end mb-2">
+        <div className="grid items-end grid-cols-4 gap-8 mb-2">
           <div>
             <Controller
               name="desde"
@@ -248,7 +245,7 @@ export default function Search({ setSearchFilters, isLoading }) {
             />
           </div>
         ) : (
-          <div className="grid w-1/5 h-6 mx-auto mt-2 items-start">
+          <div className="grid items-start w-1/5 h-6 mx-auto mt-2">
             <Button
               type="submit"
               color="red"
