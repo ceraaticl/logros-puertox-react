@@ -13,7 +13,7 @@ const columns = [
     renderCell: (params) =>
       params.row.dif_saldo === null ? (
         <Tooltip title="ATENCIÓN! ESTA FACTURA NO CUENTA CON INFORMACIÓN EN LOGROS, FAVOR REVISAR">
-          <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+          <span className="overflow-hidden whitespace-nowrap text-ellipsis">
             {params.row.rut_tenedor}
           </span>
         </Tooltip>
@@ -119,7 +119,7 @@ const columns = [
   {
     field: "monto_custodia",
     headerName: "Monto en custodia",
-    type: "string",
+    type: "number",
     disableColumnMenu: true,
     sortable: false,
     align: "right",
@@ -229,7 +229,7 @@ const columns = [
 
 const OverflowRow = ({ name }) => (
   <Tooltip title={name}>
-    <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+    <span className="overflow-hidden whitespace-nowrap text-ellipsis">
       {name}
     </span>
   </Tooltip>

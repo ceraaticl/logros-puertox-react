@@ -30,13 +30,15 @@ export default function Table({
   isLoading,
   setIsLoading,
 }) {
-  const [selectionModel, setSelectionModel] = useState([])
-  const [selectedData, setSelectedData] = useState([])
-  const [isNotifier, setIsNotifier] = useState()
-  const [hasMadeSearch, setHasMadeSearch] = useState(false)
   const [footerIsShown, setFooterIsShown] = useState(false)
+  const [hasMadeSearch, setHasMadeSearch] = useState(false)
+  const [isNotifier, setIsNotifier] = useState()
+  const [selectedData, setSelectedData] = useState([])
+  const [selectionModel, setSelectionModel] = useState([])
 
   const [bills, setBills] = useState([])
+
+  // TODO: poner puntos en montos del correo y bordes
 
   useEffect(() => {
     const getBills = async (searchFilters) => {
