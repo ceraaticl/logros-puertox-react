@@ -52,14 +52,22 @@ export default function Search({ setSearchFilters, isLoading }) {
           ...filters,
           DTE: DTE.id === 0 ? "" : DTE.id,
           emitterID: data.rutEmisor,
-          custodianID: data.rutCustodio,
           folio: parseInt(data.folio),
+          custodianID: data.rutCustodio,
         }
+        setSearchFilters(filters)
       } else {
         setParamIsMissing(true)
       }
+    } else {
+      if (data.rutCustodio) {
+        filters = {
+          ...filters,
+          custodianID: data.rutCustodio,
+        }
+        setSearchFilters(filters)
+      }
     }
-    setSearchFilters(filters)
   }
 
   const handleInfoClick = () => {
