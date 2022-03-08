@@ -59,14 +59,16 @@ export default function Search({ setSearchFilters, isLoading }) {
       } else {
         setParamIsMissing(true)
       }
-    } else {
-      if (data.rutCustodio) {
-        filters = {
-          ...filters,
-          custodianID: data.rutCustodio,
-        }
-        setSearchFilters(filters)
+    } else if (data.rutCustodio) {
+      // cuando se agrega rut custodio
+      filters = {
+        ...filters,
+        custodianID: data.rutCustodio,
       }
+      setSearchFilters(filters)
+    } else {
+      // consulta masiva basica
+      setSearchFilters(filters)
     }
   }
 
